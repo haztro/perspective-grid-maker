@@ -1,0 +1,164 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://gui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://ScreenToolbox/SizeBox.tscn" type="PackedScene" id=2]
+[ext_resource path="res://3DToolbox/ScrollContainer.gd" type="Script" id=3]
+[ext_resource path="res://ScreenToolbox/ScreenToolbox.gd" type="Script" id=4]
+[ext_resource path="res://art/joystix monospace.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://ScreenToolbox/StyledFileDialog.gd" type="Script" id=6]
+[ext_resource path="res://ScreenToolbox/NewGridDialog.tscn" type="PackedScene" id=7]
+[ext_resource path="res://ScreenToolbox/SaveGridDialog.tscn" type="PackedScene" id=8]
+[ext_resource path="res://ScreenToolbox/HelpDialog.tscn" type="PackedScene" id=9]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 0.337255, 0.360784, 0.407843, 1 )
+border_width_right = 2
+border_color = Color( 0.0705882, 0.0901961, 0.141176, 1 )
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+
+[sub_resource type="DynamicFont" id=2]
+size = 18
+font_data = ExtResource( 5 )
+
+[node name="ScreenToolbox" type="PanelContainer"]
+margin_right = 253.0
+margin_bottom = 725.0
+mouse_filter = 2
+theme = ExtResource( 1 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewGridDialog" parent="." instance=ExtResource( 7 )]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 243.0
+margin_bottom = 715.0
+
+[node name="SaveGridDialog" parent="." instance=ExtResource( 8 )]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 243.0
+margin_bottom = 715.0
+
+[node name="HelpDialog" parent="." instance=ExtResource( 9 )]
+visible = false
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 243.0
+margin_bottom = 715.0
+
+[node name="FileDialog" type="FileDialog" parent="."]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 537.0
+margin_bottom = 610.0
+popup_exclusive = true
+window_title = "Open a File"
+resizable = true
+dialog_hide_on_ok = true
+mode = 0
+access = 2
+filters = PoolStringArray( "*.png, *.jpg, *.jpeg, *.bmp ; Images" )
+show_hidden_files = true
+current_dir = "/"
+current_path = "/"
+script = ExtResource( 6 )
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 243.0
+margin_bottom = 715.0
+follow_focus = true
+scroll_horizontal_enabled = false
+script = ExtResource( 3 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+margin_right = 233.0
+margin_bottom = 705.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 27
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer"]
+margin_right = 233.0
+margin_bottom = 22.0
+custom_fonts/font = SubResource( 2 )
+text = "Canvas Settings"
+
+[node name="Button4" type="Button" parent="ScrollContainer/VBoxContainer"]
+margin_top = 49.0
+margin_right = 233.0
+margin_bottom = 83.0
+focus_mode = 0
+text = "New Grid"
+
+[node name="Button" type="Button" parent="ScrollContainer/VBoxContainer"]
+visible = false
+margin_top = 110.0
+margin_right = 233.0
+margin_bottom = 144.0
+hint_tooltip = "Export grid as png."
+focus_mode = 0
+text = "Export grid"
+
+[node name="Button3" type="Button" parent="ScrollContainer/VBoxContainer"]
+visible = false
+margin_top = 110.0
+margin_right = 233.0
+margin_bottom = 144.0
+hint_tooltip = "Add a background image."
+focus_mode = 0
+text = "add image"
+
+[node name="SizeBox" parent="ScrollContainer/VBoxContainer" instance=ExtResource( 2 )]
+visible = false
+margin_top = 192.0
+margin_right = 233.0
+margin_bottom = 304.0
+hint_tooltip = "Set the grid canvas size."
+title = "Size (px)"
+max_value = 4000
+min_value = 1
+value = 640
+
+[node name="Button2" type="Button" parent="ScrollContainer/VBoxContainer"]
+visible = false
+margin_top = 110.0
+margin_right = 233.0
+margin_bottom = 144.0
+focus_mode = 0
+text = "Fit to Window"
+
+[node name="Button5" type="Button" parent="ScrollContainer/VBoxContainer"]
+margin_top = 671.0
+margin_right = 233.0
+margin_bottom = 705.0
+size_flags_vertical = 10
+text = "Help"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 243.0
+margin_bottom = 715.0
+mouse_filter = 1
+[connection signal="new_grid" from="NewGridDialog" to="." method="_on_NewGridDialog_new_grid"]
+[connection signal="update_tooltip" from="HelpDialog" to="." method="_on_HelpDialog_update_tooltip"]
+[connection signal="file_selected" from="FileDialog" to="." method="_on_FileDialog_file_selected"]
+[connection signal="hide" from="FileDialog" to="FileDialog" method="_on_FileDialog_hide"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/Button4" to="." method="_on_Button4_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/Button3" to="." method="_on_Button3_pressed"]
+[connection signal="value_changed" from="ScrollContainer/VBoxContainer/SizeBox" to="." method="_on_SizeBox_value_changed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/Button2" to="." method="_on_Button2_pressed"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/Button5" to="." method="_on_Button5_pressed"]

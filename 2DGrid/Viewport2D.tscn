@@ -1,0 +1,8 @@
+[gd_scene format=2]
+
+[node name="Viewport2D" type="Viewport"]
+size = Vector2( 640, 640 )
+transparent_bg = true
+msaa = 3
+hdr = false
+usage = 0

@@ -1,0 +1,261 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://gui_theme.tres" type="Theme" id=1]
+[ext_resource path="res://3DToolbox/3DToolbox.gd" type="Script" id=2]
+[ext_resource path="res://3DToolbox/ScrollContainer.gd" type="Script" id=3]
+[ext_resource path="res://3DToolbox/HideButton.tscn" type="PackedScene" id=4]
+[ext_resource path="res://art/joystix monospace.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 10.0
+content_margin_right = 10.0
+content_margin_top = 10.0
+content_margin_bottom = 10.0
+bg_color = Color( 0.337255, 0.360784, 0.407843, 1 )
+border_width_left = 2
+border_color = Color( 0.0705882, 0.0901961, 0.141176, 1 )
+corner_radius_top_left = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxEmpty" id=2]
+content_margin_left = 5.0
+content_margin_right = 5.0
+
+[sub_resource type="DynamicFont" id=3]
+size = 18
+font_data = ExtResource( 5 )
+
+[node name="VPToolbox" type="PanelContainer"]
+margin_right = 253.0
+margin_bottom = 456.0
+rect_min_size = Vector2( 0, 100 )
+theme = ExtResource( 1 )
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 243.0
+margin_bottom = 446.0
+custom_styles/bg = SubResource( 2 )
+follow_focus = true
+scroll_horizontal_enabled = false
+script = ExtResource( 3 )
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+margin_left = 5.0
+margin_right = 228.0
+margin_bottom = 486.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/separation = 13
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer"]
+margin_right = 223.0
+margin_bottom = 22.0
+custom_fonts/font = SubResource( 3 )
+text = "Grid Settings"
+
+[node name="MarginContainer2" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 35.0
+margin_right = 223.0
+margin_bottom = 35.0
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 48.0
+margin_right = 223.0
+margin_bottom = 93.0
+hint_tooltip = "Angle of vertical grid lines. "
+custom_constants/separation = 6
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer3"]
+margin_right = 223.0
+margin_bottom = 20.0
+text = "Tilt: 0 degrees"
+
+[node name="HSlider3" type="HSlider" parent="ScrollContainer/VBoxContainer/VBoxContainer3"]
+margin_top = 26.0
+margin_right = 223.0
+margin_bottom = 45.0
+focus_next = NodePath("../../HBoxContainer/CheckBox")
+focus_previous = NodePath("../../VBoxContainer2/HSlider2")
+focus_mode = 0
+min_value = -90.0
+max_value = 90.0
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 106.0
+margin_right = 223.0
+margin_bottom = 151.0
+hint_tooltip = "Extent of observable grid. "
+custom_constants/separation = 6
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer2"]
+margin_right = 223.0
+margin_bottom = 20.0
+text = "Field of View"
+
+[node name="HSlider2" type="HSlider" parent="ScrollContainer/VBoxContainer/VBoxContainer2"]
+margin_top = 26.0
+margin_right = 223.0
+margin_bottom = 45.0
+focus_next = NodePath("../../VBoxContainer3/HSlider3")
+focus_previous = NodePath("../../VBoxContainer/HSlider")
+focus_mode = 0
+min_value = 1.0
+max_value = 120.0
+value = 50.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 164.0
+margin_right = 223.0
+margin_bottom = 209.0
+hint_tooltip = "Set how far the grid is drawn. "
+custom_constants/separation = 6
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/VBoxContainer"]
+margin_right = 223.0
+margin_bottom = 20.0
+text = "Render Distance"
+
+[node name="HSlider" type="HSlider" parent="ScrollContainer/VBoxContainer/VBoxContainer"]
+margin_top = 26.0
+margin_right = 223.0
+margin_bottom = 45.0
+focus_next = NodePath("../../VBoxContainer2/HSlider2")
+focus_previous = NodePath("../../VBoxContainer4/HideButton4")
+focus_mode = 0
+max_value = 0.8
+step = 0.01
+value = 0.5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 222.0
+margin_right = 223.0
+margin_bottom = 252.0
+hint_tooltip = "Set cube visibility."
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+margin_top = 5.0
+margin_right = 143.0
+margin_bottom = 25.0
+text = "Show Cube: "
+
+[node name="CheckBox" type="CheckBox" parent="ScrollContainer/VBoxContainer/HBoxContainer"]
+margin_left = 193.0
+margin_right = 223.0
+margin_bottom = 30.0
+focus_next = NodePath("../../HBoxContainer2/CheckBox2")
+focus_previous = NodePath("../../VBoxContainer3/HSlider3")
+focus_mode = 0
+size_flags_horizontal = 10
+pressed = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 265.0
+margin_right = 223.0
+margin_bottom = 295.0
+hint_tooltip = "If enabled, all (x, y, z, zy) axes are equally spaced. "
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
+margin_top = 5.0
+margin_right = 169.0
+margin_bottom = 25.0
+text = "square grid: "
+
+[node name="CheckBox2" type="CheckBox" parent="ScrollContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 193.0
+margin_right = 223.0
+margin_bottom = 30.0
+focus_next = NodePath("../../VBoxContainer4/HideButton")
+focus_previous = NodePath("../../HBoxContainer/CheckBox")
+focus_mode = 0
+size_flags_horizontal = 10
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 308.0
+margin_right = 223.0
+margin_bottom = 338.0
+hint_tooltip = "Use 5-point perspective."
+
+[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
+margin_top = 5.0
+margin_right = 117.0
+margin_bottom = 25.0
+text = "Fisheye: "
+
+[node name="CheckBox3" type="CheckBox" parent="ScrollContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 193.0
+margin_right = 223.0
+margin_bottom = 30.0
+focus_next = NodePath("../../HBoxContainer2/CheckBox2")
+focus_previous = NodePath("../../VBoxContainer3/HSlider3")
+size_flags_horizontal = 10
+
+[node name="MarginContainer" type="MarginContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 351.0
+margin_right = 223.0
+margin_bottom = 351.0
+
+[node name="VBoxContainer4" type="VBoxContainer" parent="ScrollContainer/VBoxContainer"]
+margin_top = 364.0
+margin_right = 223.0
+margin_bottom = 486.0
+custom_constants/separation = 14
+
+[node name="HideButton" parent="ScrollContainer/VBoxContainer/VBoxContainer4" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 223.0
+margin_bottom = 20.0
+focus_next = NodePath("../HideButton2")
+focus_previous = NodePath("../../HBoxContainer2/CheckBox2")
+label_name = "X Lines"
+
+[node name="HideButton2" parent="ScrollContainer/VBoxContainer/VBoxContainer4" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 34.0
+margin_right = 223.0
+margin_bottom = 54.0
+focus_next = NodePath("../HideButton3")
+focus_previous = NodePath("../HideButton")
+label_name = "Y Lines"
+
+[node name="HideButton3" parent="ScrollContainer/VBoxContainer/VBoxContainer4" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 68.0
+margin_right = 223.0
+margin_bottom = 88.0
+focus_next = NodePath("../HideButton4")
+focus_previous = NodePath("../HideButton2")
+label_name = "Z Lines"
+
+[node name="HideButton4" parent="ScrollContainer/VBoxContainer/VBoxContainer4" instance=ExtResource( 4 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = 102.0
+margin_right = 223.0
+margin_bottom = 122.0
+focus_next = NodePath("../../VBoxContainer/HSlider")
+focus_previous = NodePath("../HideButton3")
+label_name = "Z Y Lines"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 243.0
+margin_bottom = 446.0
+[connection signal="value_changed" from="ScrollContainer/VBoxContainer/VBoxContainer3/HSlider3" to="." method="_on_HSlider3_value_changed"]
+[connection signal="value_changed" from="ScrollContainer/VBoxContainer/VBoxContainer2/HSlider2" to="." method="_on_HSlider2_value_changed"]
+[connection signal="value_changed" from="ScrollContainer/VBoxContainer/VBoxContainer/HSlider" to="." method="_on_HSlider_value_changed"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer/CheckBox" to="." method="_on_CheckBox_toggled"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer2/CheckBox2" to="." method="_on_CheckBox2_toggled"]
+[connection signal="toggled" from="ScrollContainer/VBoxContainer/HBoxContainer3/CheckBox3" to="." method="_on_CheckBox3_toggled"]
