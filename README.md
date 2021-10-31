@@ -10,6 +10,6 @@ Blog post: https://haztro.dev/perspective-grid-maker
 
 ![GIF](demo.gif)
 
-Drawing I did using a grid generated with the application: 
+Drawing using a grid generated with the application: 
 
 ![PIC](drawing.png)
